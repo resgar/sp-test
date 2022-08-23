@@ -5,29 +5,17 @@ require 'evaluator'
 require 'analyzer'
 
 describe Analyzer do
-  file = File.open('spec/fixtures/files/webserver.log').first(10)
-  data = Evaluator.new(file).call
-  subject(:analyzer) { Analyzer.new(data) }
+  file = File.open('spec/fixtures/files/webserver.log').first(20)
+  subject(:analyzer) { Analyzer.new(file) }
 
   it 'returns page views' do
     expect(subject.call).to eq(
-      [{ path: '/help_page/1', ips: 4 },
-       { path: '/contact', ips: 1 },
-       { path: '/home', ips: 2 },
-       { path: '/about/2', ips: 1 },
-       { path: '/index', ips: 1 },
-       { path: '/about', ips: 1 }]
-    )
-  end
-
-  it 'returns uniq page views' do
-    expect(subject.call(&:uniq)).to eq(
-      [{ path: '/help_page/1', ips: 4 },
-       { path: '/contact', ips: 1 },
-       { path: '/home', ips: 2 },
-       { path: '/about/2', ips: 1 },
-       { path: '/index', ips: 1 },
-       { path: '/about', ips: 1 }]
+      [{ path: '/help_page/1', count: 6, uniq_count: 5 },
+       { path: '/contact', count: 3, uniq_count: 2 },
+       { path: '/home', count: 3, uniq_count: 3 },
+       { path: '/about/2', count: 3, uniq_count: 2 },
+       { path: '/index', count: 3, uniq_count: 3 },
+       { path: '/about', count: 2, uniq_count: 2 }]
     )
   end
 end

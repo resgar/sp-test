@@ -25,11 +25,11 @@ describe 'parser' do
     let(:file_path) { 'spec/fixtures/files/webserver.log' }
 
     specify do
-      expect { subject }.to output(/Pages views/).to_stdout_from_any_process
+      expect { subject }.to output(/List of webpages/).to_stdout_from_any_process
     end
 
     specify do
-      expect { subject }.to output(/Unique page views/).to_stdout_from_any_process
+      expect { subject }.to output(/List of unique page views/).to_stdout_from_any_process
     end
   end
 end

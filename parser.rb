@@ -3,6 +3,7 @@
 
 require_relative 'lib/evaluator'
 require_relative 'lib/analyzer'
+require_relative 'lib/reporter'
 
 abort 'The file parameter is required.' if ARGV.empty?
 
@@ -12,16 +13,4 @@ abort 'No such file.' unless File.exist?(file_path)
 
 file = File.open(file_path)
 
-evaluator = Evaluator.new(file)
-data = evaluator.call
-
-analyzer = Analyzer.new(data)
-
-analysis = analyzer.call
-uniq_analysis = analyzer.call(&:uniq)
-
-puts 'Pages views:'
-puts analysis
-
-puts 'Unique page views:'
-puts uniq_analysis
+Reporter.new(file).call

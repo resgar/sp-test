@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 class Analyzer
-  def initialize(data)
-    @data = data
+  def initialize(file)
+    @evaluator = Evaluator.new(file)
   end
 
   def call
+    data = evaluator.call
     data.map do |path, ips|
-      ips = yield ips if block_given?
-      { path:, ips: ips.count }
+      { path:, count: ips.count, uniq_count: ips.uniq.count }
     end
   end
 
   private
 
-  attr_reader :data
+  attr_reader :evaluator
 end
