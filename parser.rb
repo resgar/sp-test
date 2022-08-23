@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative 'lib/evaluator'
+
 abort 'The file parameter is required.' if ARGV.empty?
 
 file_path = ARGV[0]
@@ -16,18 +18,14 @@ end
 
 file = File.open(file_path)
 
-analysis = Hash.new { |h, k| h[k] = [] }
+evaluator = Evaluator.new(file)
+data = evaluator.call
 
-file.each do |line|
-  path, ip = line.split(' ')
-  analysis[path] << ip
-end
-
-page_views = analyze(analysis)
-uniq_page_views = analyze(analysis, &:uniq)
+analysis = analyze(data)
+uniq_analysis = analyze(data, &:uniq)
 
 puts 'Pages views:'
-puts page_views
+puts analysis
 
 puts 'Unique page views:'
-puts uniq_page_views
+puts uniq_analysis
