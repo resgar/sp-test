@@ -7,7 +7,7 @@
     $ bundle install
 
 ## Usage
-    $ ./parser.rb data/webserver.log
+    $ ./parser.rb spec/fixtures/files/webserver.log
 
 ## Running tests
     $ bundle exec rspec
