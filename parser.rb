@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative 'lib/evaluator'
-require_relative 'lib/analyzer'
 require_relative 'lib/reporter'
 
 abort 'The file parameter is required.' if ARGV.empty?
